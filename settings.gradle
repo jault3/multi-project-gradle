@@ -1,0 +1,4 @@
+include 'echoserver'
+include 'client'
+
+rootProject.name = 'multi-project-gradle'

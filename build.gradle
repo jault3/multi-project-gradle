@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.whitesource', name: 'whitesource-gradle-plugin', version: '18.4.2'
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+    apply plugin: 'application'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+group 'com.example'
+
+dependencies {
+    compile project(':echoserver')
+    compile project(':client')
+}
+
+// without this things break because plugins are running in a strange order
+mainClassName = ''
+
+apply plugin: 'whitesource'
+
+whitesource {
+    orgToken "$System.env.WHITESOURCE_API_KEY"
+    productName 'multi-project-gradle'
+}
